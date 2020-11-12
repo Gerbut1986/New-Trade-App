@@ -118,7 +118,7 @@
 
         public void Connect_MT5(ConnectionModel model)
         {
-            int port;
+            int port, cnt = 1;
             string address;
             string[] h = model.Address.Split(new char[] { ':' });
             if (h.Length == 1 && !model.Connected) return;
@@ -134,8 +134,8 @@
                 Subscribe(symbol);
                 while (api.GetQuote(symbol) == null)
                 {
-                    System.Threading.Thread.Sleep(1);
-                    // Sending message to email if quotes are very slowly..
+                    System.Threading.Thread.Sleep(cnt++);
+                    SMTP.SendEmailAsync(api.Account.Email, api.Account.UserName);
                 }
 
                 return;
@@ -148,8 +148,8 @@
                 Subscribe(symbol);
                 while (api.GetQuote(symbol) == null)
                 {
-                    System.Threading.Thread.Sleep(1);
-                    // Sending message to email if quotes are very slowly..
+                    System.Threading.Thread.Sleep(cnt++);
+                    SMTP.SendEmailAsync(api.Account.Email, api.Account.UserName);
                 }
 
                 model.Connected = api.Connected;

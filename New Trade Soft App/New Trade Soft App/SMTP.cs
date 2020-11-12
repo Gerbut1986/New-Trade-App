@@ -7,7 +7,7 @@
 
     class SMTP
     {
-        public static async Task SendEmailAsync(string email, string username, string msg_contant = "Slow of a Quote!")
+        public static void SendEmailAsync(string email, string username, string msg_contant = "Very slow of a Quote!")
         {
             MailAddress from = new MailAddress(email, "ActiveTrade");
             MailAddress to = new MailAddress(email);
@@ -18,8 +18,7 @@
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = new NetworkCredential("layparadize@gmail.com", "ag4313112");
             smtp.EnableSsl = true;
-            await smtp.SendMailAsync(m);
-            Console.WriteLine("Письмо отправлено");
+            smtp.SendMail(m);
         }
     }
 }
