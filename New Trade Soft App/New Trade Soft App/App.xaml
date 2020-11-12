@@ -2,8 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:New_Trade_Soft_App"
+             xmlns:conv="clr-namespace:New_Trade_Soft_App.Converters"
              StartupUri="MainWindow.xaml">
+
     <Application.Resources>
-         
+        <conv:BooleanConverter x:Key="bToBi" Inverse="True"></conv:BooleanConverter>
+        <conv:DateTimeConverter x:Key="dtToTS"></conv:DateTimeConverter>
+        <conv:BoolToVisibilityConverter x:Key="bToV"></conv:BoolToVisibilityConverter>
+        <conv:BoolToVisibilityConverter Inverse="True" x:Key="bToVi"></conv:BoolToVisibilityConverter>
+        <conv:SelectedValueNotNullConverter x:Key="svnn"></conv:SelectedValueNotNullConverter>
+        <conv:DoubleFormatConverter x:Key="dfc"></conv:DoubleFormatConverter>
+        <conv:DateTimeConverter x:Key="dtLogConv" ShowYyyyMMdd="True"></conv:DateTimeConverter>
     </Application.Resources>
 </Application>

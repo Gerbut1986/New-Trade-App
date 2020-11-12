@@ -34,3 +34,25 @@ D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New Trad
 D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New Trade Soft App\New Trade Soft App\obj\Debug\Windows\ServersDAT_Wnd.baml
 D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New Trade Soft App\New Trade Soft App\obj\Debug\Windows\AddInstrument_Wnd.g.cs
 D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New Trade Soft App\New Trade Soft App\obj\Debug\Windows\AddInstrument_Wnd.baml
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New Trade Soft App.csprojAssemblyReference.cache
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\MainWindow.g.cs
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\Windows\AddInstrument_Wnd.g.cs
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\Windows\ServersDAT_Wnd.g.cs
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\App.g.cs
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New_Trade_Soft_App_MarkupCompile.cache
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New_Trade_Soft_App_MarkupCompile.lref
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New_Trade_Soft_App.exe
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New_Trade_Soft_App.pdb
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\bin\Debug\New_Trade_Soft_App.exe.config
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\bin\Debug\New_Trade_Soft_App.exe
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\bin\Debug\New_Trade_Soft_App.pdb
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\MainWindow.baml
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\Windows\AddInstrument_Wnd.baml
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\Windows\ServersDAT_Wnd.baml
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New_Trade_Soft_App.g.resources
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New_Trade_Soft_App.Properties.Resources.resources
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New Trade Soft App.csproj.GenerateResource.cache
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New Trade Soft App.csproj.CoreCompileInputs.cache
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\New Trade Soft App.csproj.CopyComplete
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Software Development\My Freelance\Westernpips.com\New Trade Soft App\New-Trade-App\New Trade Soft App\New Trade Soft App\obj\Debug\App.baml

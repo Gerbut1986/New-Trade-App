@@ -8,7 +8,7 @@
         public ServersDAT_Wnd()
         {
             InitializeComponent();
-            foreach (var s in Connections.ServersDat())
+            foreach (var s in ConnectionModel.ServersDat())
                 listServers.Items.Add(s);
         }
     }

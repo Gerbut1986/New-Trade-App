@@ -10,11 +10,11 @@
         public ProjectModel()
         {
             _Inputs = new ObservableCollection<MT5Model>();
-            _ConnectInfo = new ObservableCollection<Connections>();
+            _ConnectInfo = new ObservableCollection<ConnectionModel>();
         }
 
-        ObservableCollection<Connections> _ConnectInfo;
-        public ObservableCollection<Connections> ConnectInfo
+        ObservableCollection<ConnectionModel> _ConnectInfo;
+        public ObservableCollection<ConnectionModel> ConnectInfo
         {
             get { return _ConnectInfo; }
             set { if (_ConnectInfo != value) { _ConnectInfo = value; OnPropertyChanged(); } }

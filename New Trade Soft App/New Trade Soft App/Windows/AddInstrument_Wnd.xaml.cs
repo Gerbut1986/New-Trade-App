@@ -1,31 +1,42 @@
 ﻿namespace New_Trade_Soft_App.Windows
 {
-    using mtapi.mt5;
+    using System.IO;
+    using System.Linq;
     using System.Windows;
     using System.Windows.Input;
     using System.Collections.Generic;
 
     public partial class AddInstrument_Wnd : Window
     {
-        List<string> symbols;
+        string[] symbols;
+        string str = "";
 
-        public AddInstrument_Wnd(List<string> symbols)
+        public AddInstrument_Wnd()
         {
             InitializeComponent();
-            this.symbols = symbols;
-            foreach (string s in symbols)
+            using (StreamReader sr = new StreamReader("Symbols.txt"))
+                str = sr.ReadToEnd();
+            symbols = str.Split(new char[] { '\n', '\r' }).ToArray();
+            List<string> list = symbols.ToList();
+            list.RemoveAll(empty => empty == "");
+            foreach (string s in list)
                 symb_cmb.Items.Add(s);
+            int[] scnds = new int[60];
+            for (int i = 1; i < scnds.Length; i++) scnds[i] = i;
+            foreach (int sec in scnds)
+                quotesIntrv_txt.Items.Add(sec);
             attemt_lbl.Visibility = Visibility.Hidden;
         }
 
         void sbmt_btn_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.Symbol = symb_cmb.Text;
+            MainWindow.Symbol = symb_cmb.Text; 
             try
             {
                 MainWindow.Lot = int.Parse(lot_txt.Text);
+                MainWindow.Seconds = int.Parse(quotesIntrv_txt.Text);
             }
-            catch { MainWindow.Lot = 0; }
+            catch { MainWindow.Lot = MainWindow.Seconds = 0; }
                 if (MainWindow.Symbol != null)
             {
                 this.Close();

@@ -3,8 +3,9 @@
 	using mtapi.mt5;
 	using System.Collections.Generic;
 
-	public class Connections
+	public class ConnectionModel
     {
+		public string Name { get; set; }
 		public string Username { get; set; }
 		public string Password { get; set; }
 		public string Address { get; set; }
@@ -26,6 +27,14 @@
 			}
 
 			return list;
+		}
+
+		public void From(ConnectionModel a)
+		{
+			Username = a.Username;
+			Password = a.Password;
+			Address = a.Address;
+			Connected = a.Connected;
 		}
 	}
 }

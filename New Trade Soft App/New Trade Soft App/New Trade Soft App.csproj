@@ -57,11 +57,28 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Connectors\ConnectorsFactory.cs" />
+    <Compile Include="Connectors\IConnector.cs" />
+    <Compile Include="Connectors\Metatrader5Client.cs" />
+    <Compile Include="Controls\DecimalTextBox.cs" />
+    <Compile Include="Controls\DoubleTextBox.cs" />
+    <Compile Include="Controls\IntegerTextBox.cs" />
+    <Compile Include="Controls\NumericStringExtensions.cs" />
+    <Compile Include="Converters\BooleanConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
+    <Compile Include="Converters\DecimalConverter.cs" />
+    <Compile Include="Converters\DoubleConverter.cs" />
+    <Compile Include="Converters\DoubleFormatConverter.cs" />
+    <Compile Include="Converters\SelectedValueNotNullConverter.cs" />
+    <Compile Include="Helpers\Parallel.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Date.cs" />
     <Compile Include="Models\MT5Model.cs" />
+    <Compile Include="Models\ProfessorBase.cs" />
     <Compile Include="Models\ProjectModel.cs" />
+    <Compile Include="Models\TradeModel.cs" />
     <Compile Include="Windows\AddInstrument_Wnd.xaml.cs">
       <DependentUpon>AddInstrument_Wnd.xaml</DependentUpon>
     </Compile>
@@ -90,7 +107,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Connections.cs" />
+    <Compile Include="Models\ConnectionModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
