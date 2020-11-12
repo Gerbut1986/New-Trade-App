@@ -79,6 +79,7 @@
     <Compile Include="Models\ProfessorBase.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\TradeModel.cs" />
+    <Compile Include="SMTP.cs" />
     <Compile Include="Windows\AddInstrument_Wnd.xaml.cs">
       <DependentUpon>AddInstrument_Wnd.xaml</DependentUpon>
     </Compile>

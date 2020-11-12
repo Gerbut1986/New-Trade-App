@@ -252,7 +252,7 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Label x:Name="date_lbl"  Grid.Column="14" FontFamily="Palatino Linotype" FontSize="15" Margin="47,1,0,0" FontWeight="Bold" Grid.Row="1" Grid.RowSpan="2" Content="12 November 2020">
+        <Label x:Name="date_lbl"  Grid.Column="14" FontFamily="Palatino Linotype" FontSize="15" Margin="47,1,0,0" FontWeight="Bold" Grid.Row="1" Grid.RowSpan="2">
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -285,19 +285,32 @@
             </Button.Foreground>
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0.166"/>
+                    <GradientStop Color="Black" Offset="0.149"/>
                     <GradientStop Color="#FF1D1B0D" Offset="0.996"/>
-                    <GradientStop Color="#FF091F1D" Offset="0.759"/>
+                    <GradientStop Color="#FF091F1D" Offset="1"/>
                     <GradientStop Color="#FF7AF0E5" Offset="0.071"/>
-                    <GradientStop Color="#FE134742" Offset="0.216"/>
-                    <GradientStop Color="#FE4AD8CC" Offset="0.303"/>
-                    <GradientStop Color="#FE050E0D" Offset="0.369"/>
-                    <GradientStop Color="#FE498B85" Offset="0.427"/>
+                    <GradientStop Color="#FE134742" Offset="0.149"/>
+                    <GradientStop Color="#FE4AD8CC" Offset="0.22"/>
+                    <GradientStop Color="#FE050E0D" Offset="0.232"/>
+                    <GradientStop Color="#FE498B85" Offset="0.253"/>
                     <GradientStop Color="#FE29988D" Offset="0.527"/>
-                    <GradientStop Color="#FE4A6E6B" Offset="0.469"/>
-                    <GradientStop Color="#FE133E3A" Offset="0.245"/>
+                    <GradientStop Color="#FE4A6E6B" Offset="0.257"/>
+                    <GradientStop Color="#FE133E3A" Offset="0.17"/>
                     <GradientStop Color="#FF0A0A0A" Offset="0.992"/>
-                    <GradientStop Color="#FF0A3B49" Offset="0.506"/>
+                    <GradientStop Color="#FF0A3B49" Offset="0.286"/>
+                    <GradientStop Color="#FE141717" Offset="0.166"/>
+                    <GradientStop Color="#FE090E0D" Offset="0.199"/>
+                    <GradientStop Color="#FE062E2A" Offset="0.693"/>
+                    <GradientStop Color="#FE145D54" Offset="0.809"/>
+                    <GradientStop Color="#FE347069" Offset="0.763"/>
+                    <GradientStop Color="#FE203A37" Offset="0.817"/>
+                    <GradientStop Color="#FE41897F" Offset="0.9"/>
+                    <GradientStop Color="#FE092521" Offset="0.855"/>
+                    <GradientStop Color="#FE244946" Offset="0.585"/>
+                    <GradientStop Color="#FE193030" Offset="0.44"/>
+                    <GradientStop Color="#FE66A3B0" Offset="0.357"/>
+                    <GradientStop Color="#FE041417" Offset="0.39"/>
+                    <GradientStop Color="#FF121313" Offset="0.029"/>
                 </LinearGradientBrush>
             </Button.Background>
         </Button>

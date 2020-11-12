@@ -153,8 +153,8 @@
                 </StackPanel>
 
                 <!-- Sec Interval: -->
-                <StackPanel Orientation="Horizontal" Margin="190,20,0,0">
-                    <Label Margin="-125,0,0,0" Content="Set Interval on a second:" FontFamily="Times New Roman" FontSize="13">
+                <StackPanel Orientation="Horizontal" Margin="143,20,0,0">
+                    <Label Margin="-79,0,0,0" Content="Set Delay of a Quotes in seconds:" FontFamily="Times New Roman" FontSize="13" Width="185">
                         <Label.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Black" Offset="0"/>
@@ -162,6 +162,7 @@
                             </LinearGradientBrush>
                         </Label.Foreground>
                     </Label>
+                    
                     <ComboBox x:Name="quotesIntrv_txt"
                     IsEditable="True"
                     FontFamily="Times New Roman"
@@ -174,7 +175,7 @@
                     HorizontalContentAlignment="Left"
                     Opacity="0.5" 
                     Height="26"
-                    Margin="63,0,0,0" GotFocus="lot_txt_GotFocus" BorderBrush="{x:Null}">
+                    Margin="17,0,0,0" GotFocus="lot_txt_GotFocus" BorderBrush="{x:Null}">
                         <ComboBox.Foreground>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Black" Offset="0"/>
