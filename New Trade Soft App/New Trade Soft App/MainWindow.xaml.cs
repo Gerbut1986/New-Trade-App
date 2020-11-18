@@ -60,27 +60,6 @@
 
         void stop_btn_Click(object sender, RoutedEventArgs e) => Stop();
 
-        void disconect_btn_Click(object sender, RoutedEventArgs e)
-        {
-            if (Model.Project.ConnectInfo[rowIndxInput].Connected)
-            {
-                Model.Project.ConnectInfo[rowIndxInput].Connected = false;
-                Model.Project.ConnectInfo.Remove(userGrid.SelectedValue as ConnectionModel);
-                return;
-            }
-            else
-            {
-                Model.Project.ConnectInfo.Remove(userGrid.SelectedValue as ConnectionModel);
-                disconect_btn.Visibility = Visibility.Hidden;
-            }
-
-
-            ConnectionModel selected = userGrid.SelectedItem as ConnectionModel;
-            selected.Connected = false;
-            if (api != null) api.Disconnect();
-            else return;
-        }
-
         void del_btn_Click(object sender, RoutedEventArgs e)
         {
             if (Model.Project.Inputs[rowIndxInput].api == null)
@@ -102,6 +81,27 @@
             }
         }
 
+        void disconect_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Model.Project.ConnectInfo[rowIndxConn].Connected)
+            {
+                Model.Project.ConnectInfo[rowIndxConn].Connected = false;
+                Model.Project.ConnectInfo.Remove(userGrid.SelectedValue as ConnectionModel);
+                return;
+            }
+            else
+            {
+                Model.Project.ConnectInfo.Remove(userGrid.SelectedValue as ConnectionModel);
+                disconect_btn.Visibility = Visibility.Hidden;
+            }
+
+
+            ConnectionModel selected = userGrid.SelectedItem as ConnectionModel;
+            selected.Connected = false;
+            if (api != null) api.Disconnect();
+            else return;
+        }
+
         void inputGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             del_btn.Visibility = Visibility.Visible;
@@ -111,7 +111,7 @@
         void userGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             disconect_btn.Visibility = Visibility.Visible;
-            rowIndxConn = inputGrid.SelectedIndex;
+            rowIndxConn = userGrid.SelectedIndex;
         }
 
         void setInst_btn_Click(object sender, RoutedEventArgs e)
