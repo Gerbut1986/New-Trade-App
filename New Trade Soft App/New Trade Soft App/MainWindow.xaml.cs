@@ -83,7 +83,8 @@
 
         void disconect_btn_Click(object sender, RoutedEventArgs e)
         {
-            if (Model.Project.ConnectInfo[rowIndxConn].Connected)
+            if (userGrid.SelectedIndex == -1) return;
+            else if (Model.Project.ConnectInfo[rowIndxConn].Connected)
             {
                 Model.Project.ConnectInfo[rowIndxConn].Connected = false;
                 Model.Project.ConnectInfo.Remove(userGrid.SelectedValue as ConnectionModel);

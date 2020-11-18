@@ -217,6 +217,7 @@
             //if(connectStatus.ToString() == "Disconnect" || connectStatus.ToString() == "Exception")
             //    Start(ulong.Parse(connectionModel.Username), connectionModel.Password, connectionModel.Address, port);
             System.Threading.Thread.Sleep(delay);
+            if(delay != 0)
                 SMTP.SendEmail(api.Account.Email, api.Account.UserName,
                     $"Fin Instrument - '{args.Symbol}'\nDelay starts for the '{delay}' seconds!!!");
             Bid = args.Bid;
