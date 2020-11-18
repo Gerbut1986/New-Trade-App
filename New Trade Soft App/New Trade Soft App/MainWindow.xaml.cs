@@ -10,23 +10,24 @@
     using New_Trade_Soft_App.Windows;
     using System.Collections.Generic;
 
-
     public partial class MainWindow : Window
     {
         bool isConnect;
         public static MT5API api;
         public static Quote quote;
         object sync = new object();
+        int rowIndxInput, rowIndxConn;
         public static int Lot { get; set; }
         public static int Seconds { get; set; }
         public static string Symbol { get; set; }
+        public static string Address { get; set; }
         ManualResetEvent threadStop = new ManualResetEvent(false);
         ManualResetEvent threadStopped = new ManualResetEvent(true);
 
         public MainWindow()
         {
             InitializeComponent();
-            stop_btn.Visibility = Visibility.Hidden;
+            stop_btn.Visibility = del_btn.Visibility = Visibility.Hidden;
             addConn_btn.IsEnabled = false;
             //servers_cmb.IsEditable = user_lbl.IsEnabled = user_txt.IsEnabled = pass_lbl.IsEnabled =
             //    pass_txt.IsEnabled = addConn_btn.IsEnabled = disconect_btn.IsEnabled = false;
@@ -37,18 +38,23 @@
         {
             try
             {
-                Start(null);
-                isConnect = MT5Model.Api.Connected;
-                userEmail_lbl.Content = "Trader Name: ";
-                mail_lbl.Content = MT5Model.Api.Account.UserName;
-                Title = MT5Model.Api.Account.Email;
-                stop_btn.Visibility = Visibility.Visible;
+                if (servers_cmb.Text.Equals(""))
+                    Title = "First you need to select any symbol from combo box!";
+                else
+                {
+                    Start(null);
+                    isConnect = MT5Model.Api.Connected;
+                    userEmail_lbl.Content = "Trader Name: ";
+                    mail_lbl.Content = MT5Model.Api.Account.UserName;
+                    Title = MT5Model.Api.Account.Email;
+                    stop_btn.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex) { Title = ex.Message; isConnect = false; }
             finally
             {
-                user_txt.Text = string.Empty;
-                pass_txt.Text = string.Empty;
+                //user_txt.Text = string.Empty;
+                //pass_txt.Text = string.Empty;
             }
         }
 
@@ -56,23 +62,65 @@
 
         void disconect_btn_Click(object sender, RoutedEventArgs e)
         {
+            if (Model.Project.ConnectInfo[rowIndxInput].Connected)
+            {
+                Model.Project.ConnectInfo[rowIndxInput].Connected = false;
+                Model.Project.ConnectInfo.Remove(userGrid.SelectedValue as ConnectionModel);
+                return;
+            }
+            else
+            {
+                Model.Project.ConnectInfo.Remove(userGrid.SelectedValue as ConnectionModel);
+                disconect_btn.Visibility = Visibility.Hidden;
+            }
+
+
             ConnectionModel selected = userGrid.SelectedItem as ConnectionModel;
             selected.Connected = false;
             if (api != null) api.Disconnect();
+            else return;
         }
 
-        void DataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        void del_btn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Model.Project.Inputs[rowIndxInput].api == null)
+            {
+                Model.Project.Inputs.Remove(inputGrid.SelectedValue as MT5Model);
+                del_btn.Visibility = Visibility.Hidden;
+                return;
+            }
+            else if (Model.Project.Inputs[rowIndxInput].api.Connected)
+            {
+                Title = "Can NOT to Delete row! Because already connected...";
+                del_btn.Visibility = Visibility.Hidden;
+                return;
+            }
+            else
+            {
+                Model.Project.Inputs.Remove(inputGrid.SelectedValue as MT5Model);
+                del_btn.Visibility = Visibility.Hidden;
+            }
+        }
+
+        void inputGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            del_btn.Visibility = Visibility.Visible;
+            rowIndxInput = inputGrid.SelectedIndex;
+        }
+
+        void userGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             disconect_btn.Visibility = Visibility.Visible;
+            rowIndxConn = inputGrid.SelectedIndex;
         }
 
         void setInst_btn_Click(object sender, RoutedEventArgs e)
         {
             new AddInstrument_Wnd().ShowDialog();
-            if (Symbol == null) return;
+            if (Symbol == null || Symbol == "") return;
             else
             {
-                Model.Project.Inputs.Add(new MT5Model(Symbol));
+                Model.Project.Inputs.Add(new MT5Model(Symbol, Seconds));
                 Symbol = "";
                 addConn_btn.IsEnabled = true;
             }
@@ -98,27 +146,52 @@
         #region Auxiliary methods:
         void Start(string p)
         {
+            Model.Project.Started = true;
+            sync = new object();
+            threadStop.Reset();
+            threadStopped.Reset();
+
             ConnectionModel conn_info = new ConnectionModel
             {
                 Address = servers_cmb.Text,
                 Username = user_txt.Text,
                 Password = pass_txt.Text,
             };
-            sync = new object();
-            threadStop.Reset();
-            threadStopped.Reset();
+
+            if (Model.Project.ConnectInfo.Count == 0)
+                Model.Project.ConnectInfo.Add(conn_info);
+            else
+            {
+                for (int i = 0; i < Model.Project.ConnectInfo.Count; i++)
+                {
+                    if (user_txt.Text == Model.Project.ConnectInfo[i].Username)
+                        break;
+                    else
+                        Model.Project.ConnectInfo.Add(conn_info);
+                }
+            }
 
             foreach (MT5Model input in Model.Project.Inputs)
+            {
                 if (input.GetType() == typeof(MT5Model))
-                    input.Connect_MT5(conn_info);
+                    Title = input.Connect_MT5(conn_info);
 
-            Model.Project.ConnectInfo.Add(conn_info);
-            Thread t = new Thread(thread);
-            t.Start(p);
+                input.FlowAsk = 0;
+                input.FlowAsk = 0;
+                input.PrevAsk = 0;
+                input.PrevBid = 0;
+                input.PrevLast = 0;
+                input.GapBuy = 0;
+                input.GapSell = 0;
+                input.Lot = 0;
+            }
+
+            new Thread(thread).Start(p);
         }
 
         void Stop()
         {
+            if (!Model.Project.Started) return;
             threadStop.Set();
             while (!threadStopped.WaitOne(1000))
                 DoEvents();

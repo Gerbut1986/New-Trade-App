@@ -33,7 +33,7 @@
             MainWindow.Symbol = symb_cmb.Text; 
             try
             {
-                MainWindow.Lot = int.Parse(lot_txt.Text);
+                MainWindow.Lot = int.Parse(lot_txt.Text == "" ? 0.ToString() : lot_txt.Text);
                 MainWindow.Seconds = int.Parse(quotesIntrv_txt.Text);
             }
             catch { MainWindow.Lot = MainWindow.Seconds = 0; }

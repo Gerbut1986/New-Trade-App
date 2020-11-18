@@ -1,24 +1,27 @@
 ﻿namespace New_Trade_Soft_App
 {
-    using System;
     using System.Net;
     using System.Net.Mail;
-    using System.Threading.Tasks;
 
     class SMTP
     {
-        public static void SendEmailAsync(string email, string username, string msg_contant = "Very slow of a Quote!")
+        public static void SendEmail(string email, string username, string msg_contant = "Very slow of a Quote!", string attach = null)
         {
-            MailAddress from = new MailAddress(email, "ActiveTrade");
+            MailAddress from = new MailAddress(email, username);
             MailAddress to = new MailAddress(email);
-            MailMessage m = new MailMessage(from, to);
-            //m.Attachments.Add(new Attachment("D://temlog.txt"));
-            m.Subject = msg_contant;
-            m.Body = "SMTP Client";
+            MailMessage msg = new MailMessage(from, to);
+            if (attach != null) 
+                msg.Attachments.Add(new Attachment(attach));
+            msg.Subject = "Msg from MT5API Client";
+            msg.Body = msg_contant;
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.Credentials = new NetworkCredential("layparadize@gmail.com", "ag4313112");
             smtp.EnableSsl = true;
-            smtp.SendMail(m);
+            try
+            {
+                smtp.Send(msg);
+            }
+            catch { }
         }
     }
 }

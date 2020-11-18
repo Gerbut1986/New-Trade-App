@@ -16,36 +16,54 @@
     public class MT5Model : BaseModel
     {
         #region Fields:
-        static Dictionary<string, TickEventArgs> symbolToTick;
-        public event EventHandler<TickEventArgs> Tick;
-        double ask, bid, last, prevBid, prevAsk, prevLast, balance;
-        string symbol, logMsg;
         DateTime time;
-        static MT5API api;
+        int port, delay, lot;
+        string symbol, logMsg;
+        ConnectionModel connectionModel;
+        public event EventHandler<TickEventArgs> Tick;
+        static Dictionary<string, TickEventArgs> symbolToTick;
+        double ask, bid, last, prevBid, prevAsk, prevLast, balance, _GapBuy, _GapSell;
         #endregion
 
         #region Constructors:
-        public MT5Model(string symbol)
+        public MT5Model()
+        {
+            Time = DateTime.MinValue;
+            symbolToTick = new Dictionary<string, TickEventArgs>();
+        }
+
+        public MT5Model(string symbol, int delay)
         {
             Symbol = symbol;
+            this.delay = delay;
             Time = DateTime.MinValue;
             symbolToTick = new Dictionary<string, TickEventArgs>();
         }
         #endregion
 
         #region Properties:
-
         public double Balance
         {
-
             get { return balance; }
             set { if (balance != value) { balance = value; OnPropertyChanged(); } }
         }
-        
+
         public string Symbol
         {
             get { return symbol; }
             set { if (symbol != value) { symbol = value; OnPropertyChanged(); } }
+        }
+
+        public int Delay
+        {
+            get { return delay; }
+            set { if (delay != value) { delay = value; OnPropertyChanged(); } }
+        }
+
+        public int Lot
+        {
+            get { return lot; }
+            set { if (lot != value) { lot = value; OnPropertyChanged(); } }
         }
 
         [XmlIgnore]
@@ -97,6 +115,20 @@
         public int FlowAsk { get; set; }
 
         [XmlIgnore]
+        public double GapBuy
+        {
+            get { return _GapBuy; }
+            set { if (_GapBuy != value) { _GapBuy = value; OnPropertyChanged(); } }
+        }
+
+        [XmlIgnore]
+        public double GapSell
+        {
+            get { return _GapSell; }
+            set { if (_GapSell != value) { _GapSell = value; OnPropertyChanged(); } }
+        }
+
+        [XmlIgnore]
         public double Last
         {
             get { return last; }
@@ -112,16 +144,17 @@
         #endregion
 
         #region Connection:
-        [XmlIgnore]
+        public MT5API api;
         public static MT5API Api { get; set; }
         public string serverMsg;
 
-        public void Connect_MT5(ConnectionModel model)
+        public string Connect_MT5(ConnectionModel model)
         {
-            int port, cnt = 1;
-            string address;
+            int cnt = 1;
+            string address, msg_res = "";
+            connectionModel = model;
             string[] h = model.Address.Split(new char[] { ':' });
-            if (h.Length == 1 && !model.Connected) return;
+            if (h.Length == 1 && !model.Connected) return "";
             else
             {
                 address = h[0];
@@ -129,89 +162,71 @@
             }
             if (model.Connected)
             {
-                api.Disconnect();
                 Start(ulong.Parse(model.Username), model.Password, address, port);
                 Subscribe(symbol);
-                while (api.GetQuote(symbol) == null)
-                {
-                    System.Threading.Thread.Sleep(cnt++);
-                    SMTP.SendEmailAsync(api.Account.Email, api.Account.UserName);
-                }
-
-                return;
+                //while (api.GetQuote(symbol) == null)
+                //{
+                //   SMTP.SendEmail(api.Account.Email, api.Account.UserName, $"Delay starts for the '{delay}' seconds!!!");
+                //}        
             }
-            
+
             Start(ulong.Parse(model.Username), model.Password, address, port);
 
             try
             {
                 Subscribe(symbol);
-                while (api.GetQuote(symbol) == null)
-                {
-                    System.Threading.Thread.Sleep(cnt++);
-                    SMTP.SendEmailAsync(api.Account.Email, api.Account.UserName);
-                }
+                //while (api.GetQuote(symbol) == null)
+                //{
+                //    cnt++;
+                //    if (cnt == delay)
+                //        SMTP.SendEmail(api.Account.Email, api.Account.UserName, $"Delay starts for the '{delay}' seconds!!!");
+                //}
 
                 model.Connected = api.Connected;
                 Api = api;
             }
             catch (ServerException sex) { serverMsg = sex.Message; }
+            return msg_res;
         }
         #endregion
 
         #region Events(MT5):
-        ConnectProgress connectStatus;
+        public static ConnectProgress connectStatus;
         public bool IsLoggedIn => connectStatus == ConnectProgress.AcceptAuthorized;
+
         void Api_OnConnectProgress(MT5API sender, ConnectEventArgs args)
         {
             bool loggedIn = connectStatus == ConnectProgress.AcceptAuthorized;
             connectStatus = args.Progress;
             if (args.Progress == ConnectProgress.AcceptAuthorized)
             {
-               // if (!loggedIn) LoggedIn?.Invoke(this, EventArgs.Empty);
+                // if (!loggedIn) LoggedIn?.Invoke(this, EventArgs.Empty);
             }
             else
             {
                 if (loggedIn)
                 {
-               //     LoggedOut?.Invoke(this, EventArgs.Empty);
+                    //     LoggedOut?.Invoke(this, EventArgs.Empty);
                     symbolToTick.Clear();
                 }
             }
         }
 
-        void Api_OnQuote(MT5API api, Quote args)
+        public void Api_OnQuote(MT5API api, Quote args)
         {
+            //if(connectStatus.ToString() == "Disconnect" || connectStatus.ToString() == "Exception")
+            //    Start(ulong.Parse(connectionModel.Username), connectionModel.Password, connectionModel.Address, port);
+            System.Threading.Thread.Sleep(delay);
+                SMTP.SendEmail(api.Account.Email, api.Account.UserName,
+                    $"Fin Instrument - '{args.Symbol}'\nDelay starts for the '{delay}' seconds!!!");
             Bid = args.Bid;
             Ask = args.Ask;
             Time = args.Time;
-            //try
-            //{
-            //    Balance = api.Account.Balance;
-            //}
-            //catch { }
-
-            //TickEventArgs tick = null;
-
-            //lock (symbolToTick)
-            //{
-            //    if (symbolToTick.ContainsKey(args.Symbol))
-            //        tick = symbolToTick[args.Symbol];
-            //}
-
-            //if (tick != null)
-            //{
-            //    tick.Bid = args.Bid;
-            //    tick.Ask = args.Ask;
-            //    tick.BrokerTime = args.Time;
-            //    Time = args.Time;
-            //    Tick?.Invoke(this, tick);
-            //}
         }
 
         void Logger_OnMsg(object sender, string msg, Logger.MsgType type)
         {
-            LogMsg = $"{msg} | {type}";
+            LogMsg = $"{msg} | {type} | {connectStatus}";
         }
         #endregion
 
@@ -239,23 +254,20 @@
                 }
             }
         }
+
         public void Start(ulong login, string password, string address, int port)
         {
-            //Stop();
-            if (api == null)
+            try
             {
-                try
-                {
-                    api = new MT5API(login, password, address, port);
-                    api.ConnectTimeout = 10000;
-                    api.OnConnectProgress += Api_OnConnectProgress;
-                    api.OnQuote += Api_OnQuote;
-                    api.Connect();
-                }
-                catch (Exception e)
-                {
-                    //logger.LogError(ViewId + " " + e.Message);
-                }
+                api = new MT5API(login, password, address, port);
+                //api.ConnectTimeout = 10000;
+                api.OnConnectProgress += Api_OnConnectProgress;
+                api.OnQuote += Api_OnQuote;
+                api.Connect();
+            }
+            catch (Exception e)
+            {
+                //logger.LogError(ViewId + " " + e.Message);
             }
             Logger.OnMsg += Logger_OnMsg;
         }
@@ -284,7 +296,7 @@
             PrevBid = Bid;
             PrevAsk = Ask;
             return res;
-        }  
+        }
 
         public virtual bool IsValid()
         {

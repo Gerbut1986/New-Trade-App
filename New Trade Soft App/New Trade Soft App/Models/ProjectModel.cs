@@ -7,10 +7,19 @@
 
     public class ProjectModel : BaseModel
     {
+        bool _Started;
+
         public ProjectModel()
         {
             _Inputs = new ObservableCollection<MT5Model>();
             _ConnectInfo = new ObservableCollection<ConnectionModel>();
+        }
+
+        [XmlIgnore]
+        public bool Started
+        {
+            get { return _Started; }
+            set { if (_Started != value) { _Started = value; OnPropertyChanged(); } }
         }
 
         ObservableCollection<ConnectionModel> _ConnectInfo;
